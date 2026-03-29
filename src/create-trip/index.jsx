@@ -71,7 +71,7 @@ const CreateTrip = () => {
       .replace("{totalDays}", formData?.noOfDays)
       .replace("{traveler}", formData?.traveler)
       .replace("{budget}", formData?.budget)
-      .replace("{totalDays}", formData?.noOfDays); // ✅ replace twice since it appears twice in prompt
+      .replace("{totalDays}", formData?.noOfDays);
 
     console.log(FINAL_PROMPT);
     const result = await chatSession.sendMessage(FINAL_PROMPT);
@@ -112,17 +112,17 @@ const CreateTrip = () => {
   };
   console.log(formData);
   return (
-    <div className="sm:px-10 md:px-32 lg:px-56 xntl:px-10 px-5 mt-10">
-      <h2 className="font-bold text-3xl">
+    <div className="px-5 sm:px-10 md:px-32 lg:px-56 mt-10">
+      <h2 className="font-bold text-2xl md:text-3xl">
         Tell us your travel preferences 🏕️🌴
       </h2>
-      <p className="mt-3 text-gray-500 text-xl">
+      <p className="mt-3 text-gray-500 text-base md:text-xl">
         Just provide some basic information, and our trip planner will generate
         a customized iternary based on your preferences.
       </p>
 
-      <div className="mt-20">
-        <h2 className="text-xl my-3 font-medium">
+      <div className="mt-10 md:mt-20">
+        <h2 className="text-lg md:text-xl my-3 font-medium">
           What is your Destination Of Choice?
         </h2>
         <GooglePlacesAutocomplete
@@ -136,8 +136,8 @@ const CreateTrip = () => {
         />
       </div>
 
-      <div className="mt-10">
-        <h2 className="text-xl my-3 font-medium">
+      <div className="mt-8 md:mt-10">
+        <h2 className="text-lg md:text-xl my-3 font-medium">
           How many days are you planning your trip?
         </h2>
         <Input
@@ -146,38 +146,38 @@ const CreateTrip = () => {
           onChange={(e) => handleInputChange("noOfDays", e.target.value)}
         />
       </div>
-      <div>
-        <h2 className="text-xl my-3 font-medium">What is your budget?</h2>
-        <div className="grid grid-cols-3 gap-3 mt-5">
+      <div className="mt-8 md:mt-10">
+        <h2 className="text-lg md:text-xl my-3 font-medium">What is your budget?</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-5">
           {SelectBudgetOptions.map((items, index) => (
             <div
               key={index}
               className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg ${formData?.budget == items.title && "shadow-lg active:bg-slate-300 border-black"}`}
               onClick={() => handleInputChange("budget", items.title)}
             >
-              <h2 className="text-4xl">{items.icon}</h2>
-              <h2 className="font-bold text-lg">{items.title}</h2>
-              <h2 className="text-sm text-gray-500">{items.desc}</h2>
+              <h2 className="text-3xl md:text-4xl">{items.icon}</h2>
+              <h2 className="font-bold text-base md:text-lg">{items.title}</h2>
+              <h2 className="text-xs md:text-sm text-gray-500">{items.desc}</h2>
             </div>
           ))}
         </div>
         Who do you plan on travelling with on your next adventure?
       </div>
 
-      <div>
-        <h2 className="text-xl my-3 font-medium">
+      <div className="mt-8 md:mt-10">
+        <h2 className="text-lg md:text-xl my-3 font-medium">
           Who do you plan on travelling with on your next adventure?
         </h2>
-        <div className="grid grid-cols-3 gap-3 mt-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-5">
           {SelectTravelesList.map((items, index) => (
             <div
               key={index}
               className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg ${formData?.traveler == items.people && "shadow-lg active:bg-slate-300 border-black"}`}
               onClick={() => handleInputChange("traveler", items.people)}
             >
-              <h2 className="text-4xl">{items.icon}</h2>
-              <h2 className="font-bold text-lg">{items.title}</h2>
-              <h2 className="text-sm text-gray-500">{items.desc}</h2>
+              <h2 className="text-3xl md:text-4xl">{items.icon}</h2>
+              <h2 className="font-bold text-base md:text-lg">{items.title}</h2>
+              <h2 className="text-xs md:text-sm text-gray-500">{items.desc}</h2>
             </div>
           ))}
         </div>
@@ -186,7 +186,7 @@ const CreateTrip = () => {
         <Button
           onClick={OnGenerateTrip}
           disabled={loading}
-          className=" bg-slate-950 hover:text-black hover:bg-slate-300 text-white"
+          className="bg-slate-950 hover:text-black hover:bg-slate-300 text-white w-full md:w-auto"
         >
           {loading ? (
             <AiOutlineLoading3Quarters className="h-7 w-7 animate-spin" />
@@ -197,12 +197,12 @@ const CreateTrip = () => {
       </div>
 
       <Dialog open={openDialogue} onOpenChange={setopenDialogue}>
-        <DialogContent className="rounded-2xl bg-slate-300 p-8 text-center">
+        <DialogContent className="rounded-2xl bg-slate-300 p-5 md:p-8 text-center w-[90%] md:w-full mx-auto">
           <DialogHeader className="flex flex-col items-center gap-3">
             <DialogDescription>
-              <div className="flex">
+              <div className="flex flex-col items-center sm:flex-row">
                 <img src="/logo.svg" alt="" className="px-8" />
-                <h2 className="font-bold text-lg mt-7">Sign In With Google</h2>
+                <h2 className="font-bold text-lg mt-2 sm:mt-7">Sign In With Google</h2>
               </div>
               <p>Sign In to the App with Google Authentication securely</p>
               <Button
